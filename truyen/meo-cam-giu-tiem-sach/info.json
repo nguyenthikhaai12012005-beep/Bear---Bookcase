@@ -1,0 +1,11 @@
+{
+  "ten": "Mèo cam giữ tiệm sách",
+  "tacGia": "Bear Bookcase (truyện mẫu)",
+  "theLoai": "Truyện ngắn, chữa lành",
+  "moTa": "Một chiều mưa, cô sinh viên Thư trú tạm vào tiệm sách cũ cuối ngõ và được một chú mèo cam dẫn tới đúng cuốn sách cô cần. Truyện mẫu ngắn do Bear Bookcase tự viết để minh họa trang đọc truyện.",
+  "sachId": "",
+  "chuong": [
+    { "file": "chuong-1.md", "ten": "Vị khách trú mưa" },
+    { "file": "chuong-2.md", "ten": "Cuốn sách không có tên" }
+  ]
+}
