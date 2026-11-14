@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bear Bookcase</title>
+  <meta name="description" content="Bear Bookcase: tuyển tập giới thiệu sách và truyện hay bằng tiếng Việt — đời sống, kinh điển, BookTok, truyện ma và bách hợp.">
+  <meta name="theme-color" content="#fbf6ef">
+  <link rel="icon" type="image/svg+xml" href="img/logo-meo-cam.svg">
+  <link rel="apple-touch-icon" href="img/logo-meo-cam.svg">
+
+  <!-- Áp giao diện sáng/tối đã lưu trước khi vẽ trang để tránh nháy màu -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('bearBookcase.giaoDien');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#ket-qua">Bỏ qua, tới danh sách sách</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="Bear Bookcase, về trang chủ">
+        <img class="brand-logo" src="img/logo-meo-cam.svg" alt="" width="48" height="48">
+        <span class="brand-text">
+          <span class="brand-name">Bear Bookcase</span>
+          <span class="brand-tag">Sách hay, truyện cuốn, kể bằng tiếng Việt</span>
+        </span>
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Menu chính">
+        <a href="#dang-doc-do" data-nav-muc="dang-doc-do"><span aria-hidden="true">📖</span> Đang đọc dở</a>
+        <a href="#ke-sach" data-nav-muc="ke-sach"><span aria-hidden="true">🗂️</span> Kệ sách</a>
+        <a href="#doc-truyen" data-nav-muc="doc-truyen"><span aria-hidden="true">📚</span> Đọc truyện</a>
+        <a href="#tu-sach"><span aria-hidden="true">🔎</span> Tủ sách</a>
+        <a href="#tu-sach" data-nav-yeu-thich><span aria-hidden="true">♥</span> Sách tôi thích</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav">
+          <svg class="icon icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg class="icon icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+        <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Chuyển sang giao diện tối">
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1.5 12h3M19.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Khu "Đang đọc dở": ẩn khi chưa có cuốn nào -->
+    <section class="reading" id="dang-doc-do" aria-labelledby="reading-title" hidden>
+      <div class="reading-head">
+        <h2 id="reading-title"><span aria-hidden="true">📖</span> Đang đọc dở</h2>
+        <span class="reading-count" id="reading-count"></span>
+      </div>
+      <div class="reading-list" id="reading-list"></div>
+    </section>
+
+    <section class="intro">
+      <h1>Hôm nay đọc gì?</h1>
+      <p>Một tủ sách nhỏ gồm những cuốn sách đời sống, kinh điển, tiểu thuyết hot TikTok, truyện ma và bách hợp — mỗi cuốn kèm vài dòng giới thiệu và lý do nên đọc.</p>
+    </section>
+
+    <!-- "Kệ sách của tôi": sách chủ trang tự thêm vào thư mục sach/ (ẩn khi chưa có sách) -->
+    <section class="my-shelf" id="ke-sach" aria-labelledby="ke-sach-title" hidden>
+      <div class="reading-head">
+        <h2 id="ke-sach-title"><span aria-hidden="true">🗂️</span> Kệ sách của tôi</h2>
+        <span class="reading-count" id="ke-sach-count"></span>
+      </div>
+      <p class="shelf-note" id="ke-sach-note">Bấm vào bìa để xem và đọc sách.</p>
+      <div class="shelf-grid" id="ke-sach-grid"></div>
+    </section>
+
+    <!-- Mục "Đọc truyện": liệt kê truyện trong thư mục truyen/ (ẩn khi chưa có truyện) -->
+    <section class="stories" id="doc-truyen" aria-labelledby="stories-title" hidden>
+      <div class="reading-head">
+        <h2 id="stories-title"><span aria-hidden="true">📚</span> Đọc truyện</h2>
+      </div>
+      <div class="story-list" id="story-list"></div>
+      <p class="story-note" id="story-note" hidden></p>
+    </section>
+
+    <section class="controls" id="tu-sach" aria-label="Tìm kiếm và bộ lọc">
+      <div class="search">
+        <label class="visually-hidden" for="search-input">Tìm theo tên sách hoặc tác giả</label>
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="search-input" type="search" placeholder="Tìm tên sách hoặc tác giả…" autocomplete="off" spellcheck="false">
+        <button class="search-clear" id="search-clear" type="button" aria-label="Xóa ô tìm kiếm" hidden>×</button>
+      </div>
+
+      <div class="chip-group category-chips" id="category-chips" role="group" aria-label="Lọc theo thể loại"></div>
+
+      <div class="toggle-row">
+        <button class="toggle-btn" id="hot-toggle" type="button" aria-pressed="false">
+          <span aria-hidden="true">🔥</span> Hot 5 năm gần đây <span class="count" id="hot-count"></span>
+        </button>
+        <button class="toggle-btn" id="fav-toggle" type="button" aria-pressed="false">
+          <span class="heart-mini" aria-hidden="true">♥</span> Sách tôi thích <span class="count" id="fav-count">0</span>
+        </button>
+        <button class="toggle-btn random-btn" id="random-btn" type="button">
+          <span aria-hidden="true">🎲</span> Gợi ý ngẫu nhiên
+        </button>
+      </div>
+
+      <div class="status-row" id="status-chips" role="group" aria-label="Lọc theo trạng thái đọc"></div>
+
+      <details class="tag-filter" id="tag-filter">
+        <summary>
+          <span>Lọc theo chủ đề</span>
+          <span class="tag-active-count" id="tag-active-count" hidden></span>
+        </summary>
+        <p class="tag-hint">Chọn một hoặc nhiều chủ đề; sách phải có đủ các chủ đề đã chọn.</p>
+        <div class="chip-group tag-chips" id="tag-chips" role="group" aria-label="Chủ đề"></div>
+      </details>
+    </section>
+
+    <div class="result-bar">
+      <div class="result-left">
+        <p class="result-info" id="result-info" aria-live="polite"></p>
+        <button class="link-btn" id="reset-btn" type="button" hidden>Xóa bộ lọc</button>
+      </div>
+      <label class="sort">
+        <span>Sắp xếp</span>
+        <select id="sort-select">
+          <option value="mac-dinh">Mặc định</option>
+          <option value="moi-nhat">Năm: mới → cũ</option>
+          <option value="cu-nhat">Năm: cũ → mới</option>
+          <option value="ten">Tên A → Z</option>
+        </select>
+      </label>
+    </div>
+    <p class="category-note" id="category-note" hidden></p>
+
+    <section id="ket-qua" class="grid" aria-label="Danh sách sách" tabindex="-1"></section>
+
+    <div class="empty" id="empty-state" hidden>
+      <p class="empty-emoji" aria-hidden="true">🔍</p>
+      <p class="empty-title" id="empty-title">Không tìm thấy cuốn nào phù hợp.</p>
+      <p class="empty-text" id="empty-text">Thử từ khóa khác hoặc bỏ bớt bộ lọc nhé.</p>
+      <button class="toggle-btn" id="empty-reset" type="button">Xem lại tất cả sách</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <img class="footer-logo" src="img/logo-meo-cam.svg" alt="" width="40" height="40">
+      <div>
+        <p><strong>Bear Bookcase</strong> — phần giới thiệu do người biên soạn tự viết, không chép từ sách hay bài review khác.</p>
+        <p>Sách yêu thích và đánh dấu đọc chỉ lưu trên trình duyệt của bạn.</p>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="detail" id="detail" aria-labelledby="detail-title">
+    <div class="detail-bar">
+      <button class="icon-btn detail-close" id="detail-close" type="button" aria-label="Đóng">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="detail-content" id="detail-content"></div>
+  </dialog>
+
+  <script src="js/data.js"></script>
+  <script src="js/truyen.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/sha256.js"></script>
+  <script src="sach/cau-hinh.js"></script>
+  <script src="sach/danh-sach.js"></script>
+  <script src="js/pdf-tien-ich.js"></script>
+  <script src="js/ke-sach-chung.js"></script>
+  <script src="js/ke-sach.js"></script>
+</body>
+</html>

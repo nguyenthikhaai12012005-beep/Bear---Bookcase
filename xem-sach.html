@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Đọc sách · Bear Bookcase</title>
+  <meta name="theme-color" content="#fbf6ef">
+  <link rel="icon" type="image/svg+xml" href="img/logo-meo-cam.svg">
+  <link rel="apple-touch-icon" href="img/logo-meo-cam.svg">
+  <script>
+    try { var t = localStorage.getItem('bearBookcase.giaoDien'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/doc.css">
+</head>
+<body class="reader-page pdf-reader-page">
+  <a class="skip-link" href="#pdf-stage">Bỏ qua, tới nội dung sách</a>
+  <div class="read-progress" aria-hidden="true"><span id="read-progress-bar"></span></div>
+
+  <header class="site-header reader-header">
+    <div class="reader-bar">
+      <a class="brand reader-home" href="index.html#ke-sach" aria-label="Về Kệ sách của tôi">
+        <img class="brand-logo" src="img/logo-meo-cam.svg" alt="" width="40" height="40">
+        <span class="brand-name">Kệ sách</span>
+      </a>
+      <span class="reader-title" id="reader-title"></span>
+      <div class="reader-actions">
+        <button class="icon-btn text-btn" id="btn-tools" type="button" aria-label="Thu phóng và chuyển trang" aria-expanded="false" aria-controls="pdf-tools">Aa</button>
+      </div>
+    </div>
+    <div class="settings-panel" id="pdf-tools" hidden>
+      <div class="setting-row">
+        <span class="setting-label">Cỡ trang</span>
+        <div class="setting-controls">
+          <button class="toggle-btn step-btn" id="zoom-out" type="button" aria-label="Thu nhỏ">−</button>
+          <output class="font-value" id="zoom-value" aria-live="polite">100%</output>
+          <button class="toggle-btn step-btn" id="zoom-in" type="button" aria-label="Phóng to">+</button>
+          <button class="toggle-btn" id="zoom-fit" type="button">Vừa màn hình</button>
+        </div>
+      </div>
+      <form class="setting-row" id="goto-form">
+        <label class="setting-label" for="goto-input">Tới trang</label>
+        <div class="setting-controls">
+          <input class="goto-input" id="goto-input" type="number" inputmode="numeric" min="1" step="1">
+          <button class="toggle-btn" type="submit">Đi</button>
+        </div>
+      </form>
+      <div class="setting-row">
+        <span class="setting-label">File</span>
+        <div class="setting-controls">
+          <a class="toggle-btn" id="pdf-open-tab" target="_blank" rel="noopener">Mở tab mới ↗</a>
+          <a class="toggle-btn" id="pdf-download" download>⬇ Tải về</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pdf-main" id="pdf-stage" tabindex="-1">
+    <div id="pdf-view"><p class="reader-loading">Đang mở sách…</p></div>
+  </main>
+
+  <div class="page-pill" id="page-pill" aria-live="polite" hidden></div>
+
+  <div class="resume-toast" id="resume-toast" role="status" hidden>
+    <span id="resume-text"></span>
+    <button class="toggle-btn" id="resume-btn" type="button">Về trang 1</button>
+    <button class="icon-btn resume-close" id="resume-close" type="button" aria-label="Ẩn">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/sha256.js"></script>
+  <script src="sach/cau-hinh.js"></script>
+  <script src="sach/danh-sach.js"></script>
+  <script src="js/pdf-tien-ich.js"></script>
+  <script src="js/ke-sach-chung.js"></script>
+  <script src="js/xem-sach.js"></script>
+</body>
+</html>

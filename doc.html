@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Đọc truyện · Bear Bookcase</title>
+  <meta name="theme-color" content="#fbf6ef">
+  <link rel="icon" type="image/svg+xml" href="img/logo-meo-cam.svg">
+  <link rel="apple-touch-icon" href="img/logo-meo-cam.svg">
+
+  <!-- Áp cỡ chữ và màu nền đã lưu trước khi vẽ trang để tránh nháy -->
+  <script>
+    (function () {
+      var r = document.documentElement;
+      try {
+        var t = localStorage.getItem('bearBookcase.giaoDien');
+        if (t === 'light' || t === 'dark') r.setAttribute('data-theme', t);
+        var c = JSON.parse(localStorage.getItem('bearBookcase.caiDatDoc') || '{}') || {};
+        if (c.nen === 'sang' || c.nen === 'sepia' || c.nen === 'toi') {
+          r.setAttribute('data-theme', c.nen === 'toi' ? 'dark' : 'light');
+          r.setAttribute('data-reader', c.nen);
+        }
+        if (typeof c.co === 'number' && c.co >= 14 && c.co <= 30) r.style.setProperty('--co', c.co + 'px');
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/doc.css">
+</head>
+<body class="reader-page">
+  <a class="skip-link" href="#noi-dung">Bỏ qua, tới nội dung truyện</a>
+
+  <div class="read-progress" aria-hidden="true"><span id="read-progress-bar"></span></div>
+
+  <header class="site-header reader-header">
+    <div class="reader-bar">
+      <a class="brand reader-home" href="./" aria-label="Về trang chủ Bear Bookcase">
+        <img class="brand-logo" src="img/logo-meo-cam.svg" alt="" width="40" height="40">
+        <span class="brand-name">Bear Bookcase</span>
+      </a>
+      <span class="reader-title" id="reader-title"></span>
+      <div class="reader-actions">
+        <button class="icon-btn" id="btn-toc" type="button" aria-label="Mục lục" aria-expanded="false" aria-controls="toc-panel" hidden>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        </button>
+        <button class="icon-btn text-btn" id="btn-settings" type="button" aria-label="Cỡ chữ và màu nền" aria-expanded="false" aria-controls="settings-panel">Aa</button>
+      </div>
+    </div>
+
+    <div class="settings-panel" id="settings-panel" hidden>
+      <div class="setting-row">
+        <span class="setting-label">Cỡ chữ</span>
+        <div class="setting-controls">
+          <button class="toggle-btn step-btn" id="font-down" type="button" aria-label="Giảm cỡ chữ">A−</button>
+          <output class="font-value" id="font-value" aria-live="polite">18px</output>
+          <button class="toggle-btn step-btn" id="font-up" type="button" aria-label="Tăng cỡ chữ">A+</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label" id="nen-label">Màu nền</span>
+        <div class="setting-controls" role="group" aria-labelledby="nen-label">
+          <button class="toggle-btn bg-btn bg-sang" type="button" data-nen="sang" aria-pressed="false">Sáng</button>
+          <button class="toggle-btn bg-btn bg-sepia" type="button" data-nen="sepia" aria-pressed="false">Sepia</button>
+          <button class="toggle-btn bg-btn bg-toi" type="button" data-nen="toi" aria-pressed="false">Tối</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="noi-dung" class="reader-main" tabindex="-1">
+    <div id="view"><p class="reader-loading">Đang tải…</p></div>
+  </main>
+
+  <!-- Thanh "Đọc tiếp" khi mở lại đúng chương đang đọc dở -->
+  <div class="resume-toast" id="resume-toast" role="status" hidden>
+    <span id="resume-text"></span>
+    <button class="toggle-btn" id="resume-btn" type="button">Đọc tiếp</button>
+    <button class="icon-btn resume-close" id="resume-close" type="button" aria-label="Ẩn">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="toc-backdrop" id="toc-backdrop" hidden></div>
+  <nav class="toc-panel" id="toc-panel" aria-labelledby="toc-title" hidden>
+    <div class="toc-head">
+      <h2 id="toc-title">Mục lục</h2>
+      <button class="icon-btn" id="toc-close" type="button" aria-label="Đóng mục lục">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ol class="toc-list" id="toc-list"></ol>
+  </nav>
+
+  <script src="js/truyen.js"></script>
+  <script src="js/doc.js"></script>
+</body>
+</html>
